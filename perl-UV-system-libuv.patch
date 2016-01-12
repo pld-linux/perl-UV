@@ -1,0 +1,58 @@
+--- UV-0.24/Makefile.PL.orig	2013-03-29 08:53:40.000000000 +0100
++++ UV-0.24/Makefile.PL	2016-01-11 21:50:58.824753288 +0100
+@@ -36,17 +36,14 @@
+ 
+ use_ppport 3.20;
+ cc_src_paths 'src';
+-cc_include_paths 'deps/libuv/include';
+ cc_warnings;
+ 
+ test_requires 'Test::TCP';
+ 
+-no_index directory => 'deps';
+-
+ auto_set_repository;
+ 
+ if ($^O eq 'linux') {
+-    cc_libs 'm', 'dl', 'rt', 'pthread';
++    cc_libs 'm', 'dl', 'rt', 'pthread', 'uv';
+ }
+ elsif ($^O eq 'darwin') {
+     cc_libs 'm', 'pthread';
+@@ -68,36 +65,4 @@
+     die "$^O is unsupported at this point\n";
+ }
+ 
+-unless ($^O eq 'MSWin32') {
+-    cc_append_to_ccflags '-fPIC';
+-
+-    # XXX
+-    use File::Spec;
+-    my $mk_file = File::Spec->catfile('deps', 'libuv', 'config-unix.mk');
+-
+-    open my $fh, '<', $mk_file or die $!;
+-    my $mk = do { local $/; <$fh> };
+-    close $fh;
+-
+-    unless ($mk =~ /-g -fPIC/) {
+-        $mk =~ s/-g/-g -fPIC/;
+-
+-        open $fh, '>', $mk_file or die $!;
+-        print $fh $mk;
+-        close $fh;
+-    }
+-}
+-
+-makemaker_args->{MYEXTLIB} = 'deps/libuv/libuv$(LIB_EXT)';
+-
+-{
+-    package MY;
+-    sub postamble {
+-        <<'__EOF__';
+-$(MYEXTLIB):
+-	$(MAKE) -C deps/libuv
+-__EOF__
+-    }
+-}
+-
+ WriteAll;
