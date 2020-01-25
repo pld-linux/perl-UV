@@ -4,7 +4,6 @@
 %bcond_without	tests		# do not perform "make test"
 #
 %define		pdir	UV
-%include	/usr/lib/rpm/macros.perl
 Summary:	UV - Perl interface to libuv
 Summary(pl.UTF-8):	UV - perlowy interfejs do libuv
 Name:		perl-UV
