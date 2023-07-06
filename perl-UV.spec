@@ -8,7 +8,7 @@ Summary:	UV - Perl interface to libuv
 Summary(pl.UTF-8):	UV - perlowy interfejs do libuv
 Name:		perl-UV
 Version:	0.24
-Release:	9
+Release:	10
 License:	MIT
 Group:		Development/Languages/Perl
 Source0:	http://www.cpan.org/modules/by-authors/id/T/TY/TYPESTER/%{pdir}-%{version}.tar.gz
