@@ -43,7 +43,7 @@ UV::listen, uv_tcp_connect na UV::tcp_connect itd.
 %prep
 %setup -q -n %{pdir}-%{version}
 %if %{with system_libuv}
-%patch0 -p1
+%patch -P0 -p1
 %endif
 
 %build
